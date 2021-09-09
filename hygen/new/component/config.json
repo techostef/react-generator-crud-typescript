@@ -1,0 +1,14 @@
+{
+  "path": [
+    "content/PageOrder/OrderManagement/Dialog/DialogLog",
+    "content/PageOrder/OrderManagement/Dialog/",
+    "content/PageControlPanel/ControlPanelHeader/Dialog/",
+    "content/PageControlPanel/ControlPanelHeader/",
+    "content/PageStocks/StocksManagement/Content/StockDetails/Content",
+    "content/PageStocks/StocksManagement/Content/StockDetails/",
+    "content/PageStocks/StocksManagement/Content/",
+    "content/PageStocks/StocksManagement/",
+    "content/PageStocks/StocksEditor/",
+    "content/PageStocks/StocksEditor/Content/"
+  ]
+}

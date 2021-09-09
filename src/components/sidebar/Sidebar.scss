@@ -1,0 +1,53 @@
+
+.fmlx-sidebar {
+  aside {
+    .ant-layout-sider-children {
+      .ant-menu-dark {
+        color: white;
+        .ant-menu-item {
+          color: white;
+        }
+      }
+    }
+  }
+  .ant-layout-sider-trigger {
+    color: white;
+    li {
+      color: white;
+    }
+  }
+}
+.ant-menu-dark {
+  color: white;
+  .ant-menu-item {
+    color: white;
+  }
+}
+.ant-menu-sub {
+  color: white;
+  .ant-menu-submenu-title {
+    color: white;
+  }
+}
+
+.ant-menu-submenu-open {
+  color: #999999 !important;
+  background-color: #E0E0E0 !important;
+  > div {
+    .ant-menu-submenu-arrow {
+      &::after {
+        background-color: #999999 !important;
+      }
+      &::before {
+        background-color: #999999 !important;
+      }
+    }
+  }
+  .ant-menu-sub {
+    color: #999999 !important;
+    background-color: #F5F5F5 !important;
+    .ant-menu-item {
+      color: #999999 !important;
+    }
+  }
+}

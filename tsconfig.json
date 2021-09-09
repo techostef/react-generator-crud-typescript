@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "module": "esnext",
+    "target": "es6",
+    "lib": [
+      "dom",
+      "es6",
+      "es5",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "noLib": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src",
+    ".eslintrc.js"
+  ],
+  "exclude": [
+    "**/__test__",
+    "**/storybook",
+    "./node_modules"
+  ]
+}

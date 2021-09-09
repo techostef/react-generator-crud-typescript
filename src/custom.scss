@@ -1,0 +1,24 @@
+/* Provide sufficient contrast against white background */
+@import '~antd/dist/antd.dark.css';
+@import '~antd/dist/antd.compact.css';
+
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #E01A76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+.container {
+    padding: 20px;
+}
+
+.ant-table-content {
+    width: 100%;
+}

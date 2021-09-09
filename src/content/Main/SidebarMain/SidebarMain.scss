@@ -1,0 +1,26 @@
+.container-app {
+  .ant-layout-has-sider {
+      flex: unset !important;
+  }
+  .ant-layout-sider {
+    // width: 69px !important;
+    // min-width: 69px !important;
+    // max-width: 69px !important;
+  }
+  .ant-layout-sider-trigger {
+  }
+  .ant-menu-inline-collapsed {
+    // .ant-menu-item {
+    //   display: flex;
+    //   flex-direction: column;
+    //   height: 60px;
+    //   .ant-menu-title-content {
+    //     opacity: 1 !important;
+    //     margin-top: -17px;
+    //     margin-left: -25px;
+    //     width: 66px;
+    //     text-align: center;
+    //   }
+    // }
+  }
+}
