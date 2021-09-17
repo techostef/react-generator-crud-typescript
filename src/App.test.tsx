@@ -12,6 +12,6 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <Provider store={store}>
       <App />
-    </Provider>, document.createElement('div')
+    </Provider>, document.createElement('div'),
   );
 });

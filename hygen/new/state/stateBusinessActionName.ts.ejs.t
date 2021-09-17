@@ -114,7 +114,7 @@ const deleteItems = (selectedItem: I<%= pascalStateName %>StateData[]) => {
         ids,
       },
     }).then((response) => {
-      console.log('response', response);
+      RestHelper.handleResultRequest(response);
     });
     await batch(async () => {
       dispatch(<%= camelStateName %>StateAction.editPropertyStateByKey('isLoadingTable', true));

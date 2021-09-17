@@ -10,7 +10,7 @@ describe('Sidebar test', () => {
     render(
       <div data-testid="SidebarId">
         <Sidebar menus={[]} />
-      </div>
+      </div>,
     );
 
     await screen.findByTestId('SidebarId');
@@ -31,18 +31,18 @@ describe('Sidebar test', () => {
         children: [
           {
             id: '3',
-            content: 'Tom'
+            content: 'Tom',
           },
           {
             id: '4',
             content: 'Bill',
-            icon: undefined
+            icon: undefined,
           },
           {
             id: '5',
-            content: 'Alex'
+            content: 'Alex',
           },
-        ]
+        ],
       },
       {
         id: 'sub3',
@@ -50,7 +50,7 @@ describe('Sidebar test', () => {
         children: [
           {
             id: '6',
-            content: 'Tom'
+            content: 'Tom',
           },
           {
             id: '8',
@@ -63,21 +63,21 @@ describe('Sidebar test', () => {
         id: '9',
         content: 'Files',
       },
-    ]
+    ];
     render(
       <div data-testid="SidebarId">
         <Sidebar menus={menus} />
-      </div>
+      </div>,
     );
 
     userEvent.click(document.querySelector('.ant-layout-sider-trigger'));
 
-    screen.findByText('Option 1')
-    screen.findByText('Option 2')
-    screen.findByText('User')
-    screen.findByText('Team')
-    screen.findByText('Files')
+    await screen.findByText('Option 1');
+    await screen.findByText('Option 2');
+    await screen.findByText('User');
+    await screen.findByText('Team');
+    await screen.findByText('Files');
 
     await screen.findByTestId('SidebarId');
   });
-})
+});

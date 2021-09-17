@@ -17,8 +17,8 @@ describe('<%= pascalStateName %>StateAction Change', () => {
     let <%= camelStateName %>State: I<%= pascalStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
     expect(<%= camelStateName %>State.data.length).toBe(0);
     dispatch(<%= camelStateName %>StateAction.addItem({
-      Id: 1,
-      Name: '123',
+      id: 1,
+      name: '123',
       isSelected: false,
     }) as any);
     state = getState() as IState;
@@ -33,14 +33,14 @@ describe('<%= pascalStateName %>StateAction Change', () => {
     let <%= camelStateName %>State: I<%= pascalStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
     const name = 'test name';
     dispatch(<%= camelStateName %>StateAction.addItem({
-      Id: 1,
-      Name: '123',
+      id: 1,
+      name: '123',
       isSelected: false,
     }) as any);
-    dispatch(<%= camelStateName %>StateAction.editItemByKey({ Id: 1, key: 'Name', value: name }) as any)
+    dispatch(<%= camelStateName %>StateAction.editItemByKey({ id: 1, key: 'name', value: name }) as any);
     state = getState() as IState;
     <%= camelStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
-    expect(<%= camelStateName %>State.data[0].Name).toBe(name);
+    expect(<%= camelStateName %>State.data[0].name).toBe(name);
   });
 
   it('test remove item', () => {
@@ -50,8 +50,8 @@ describe('<%= pascalStateName %>StateAction Change', () => {
     let <%= camelStateName %>State: I<%= pascalStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
     expect(<%= camelStateName %>State.data.length).toBe(0);
     dispatch(<%= camelStateName %>StateAction.addItem({
-      Id: 1,
-      Name: '123',
+      id: 1,
+      name: '123',
       isSelected: false,
     }));
     state = getState() as IState;
@@ -71,18 +71,18 @@ describe('<%= pascalStateName %>StateAction Change', () => {
     let <%= camelStateName %>State: I<%= pascalStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
     const name = 'test name';
     dispatch(<%= camelStateName %>StateAction.addItem({
-      Id: 1,
-      Name: '123',
+      id: 1,
+      name: '123',
       isSelected: false,
     }) as any);
     dispatch(<%= camelStateName %>StateAction.setItem(1, {
-      Id: 1,
-      Name: name,
+      id: 1,
+      name,
       isSelected: false,
     }) as any);
     state = getState() as IState;
     <%= camelStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
-    expect(<%= camelStateName %>State.data[0].Name).toBe(name);
+    expect(<%= camelStateName %>State.data[0].name).toBe(name);
   });
 
   it('test restore data', () => {
@@ -92,8 +92,8 @@ describe('<%= pascalStateName %>StateAction Change', () => {
     let <%= camelStateName %>State: I<%= pascalStateName %>State = state?.<%= camelStateName %>State.toJS() as I<%= pascalStateName %>State;
     expect(<%= camelStateName %>State.data.length).toBe(0);
     dispatch(<%= camelStateName %>StateAction.restoreData([{
-      Id: 1,
-      Name: '123',
+      id: 1,
+      name: '123',
       isSelected: false,
     }]) as any);
     state = getState() as IState;

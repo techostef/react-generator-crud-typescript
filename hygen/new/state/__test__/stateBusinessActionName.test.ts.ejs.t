@@ -19,13 +19,13 @@ describe('<%= pascalStateName %>BusinessAction test', () => {
     expect(<%= camelStateName %>State.data.length).toBe(0);
     dispatch(<%= camelStateName %>StateAction.restoreData([
       {
-        Id: 1,
-        Name: '123',
+        id: 1,
+        name: '123',
         isSelected: false,
       },
       {
-        Id: 2,
-        Name: '2233',
+        id: 2,
+        name: '2233',
         isSelected: false,
       },
     ]) as any);
@@ -49,13 +49,13 @@ describe('<%= pascalStateName %>BusinessAction test', () => {
     expect(<%= camelStateName %>State.data.length).toBe(0);
     dispatch(<%= camelStateName %>StateAction.restoreData([
       {
-        Id: 1,
-        Name: '123',
+        id: 1,
+        name: '123',
         isSelected: false,
       },
       {
-        Id: 2,
-        Name: '2233',
+        id: 2,
+        name: '2233',
         isSelected: false,
       },
     ]) as any);

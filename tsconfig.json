@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "module": "esnext",
     "target": "es6",
     "lib": [
-      "dom",
-      "es6",
-      "es5",
-      "dom.iterable",
+      "DOM",
+      "ES5",
+      "ES6",
+      "ES2016",
       "scripthost"
     ],
     "sourceMap": true,
@@ -30,6 +29,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
+  "lib": [
+    "DOM",
+    "ES5",
+    "ES6",
+    "ES2016",
+    "scripthost"
+  ],
   "include": [
     "src",
     ".eslintrc.js"
@@ -37,6 +43,7 @@
   "exclude": [
     "**/__test__",
     "**/storybook",
-    "./node_modules"
+    "./node_modules",
+    "typings"
   ]
 }

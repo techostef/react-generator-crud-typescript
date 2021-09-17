@@ -7,12 +7,15 @@ module.exports = {
   ],
   env: {
     'jest/globals': true,
+    browser: true,
   },
-  plugins: ['jest'],
+  plugins: ['jest', '@typescript-eslint'],
   rules: {
     indent: ['warn', 2, { SwitchCase: 1 }],
     semi: 1,
     quotes: ['warn', 'single'],
+    'testing-library/no-node-access': 0,
+    'no-await-in-loop': 0,
     'no-restricted-globals': 0,
     'prefer-object-spread': 0,
     'no-use-before-define': 0,
@@ -22,7 +25,7 @@ module.exports = {
     'prefer-const': 1,
     'no-undef': 1,
     'object-curly-spacing': 1,
-    'no-unused-vars': 1,
+    'no-unused-vars': 0,
     'react/self-closing-comp': 1,
     'arrow-body-style': 0,
     'react/jsx-indent': 'off',
@@ -32,8 +35,8 @@ module.exports = {
     'object-curly-newline': 'off',
     'react/jsx-filename-extension': 'off',
     'react/no-unescaped-entities': 0,
-    'import/extensions': 'off', // disabled for ignore extension file import
-    'comma-dangle': ['error', 'always-multiline'], // using comma every key obj or array
+    'import/extensions': 'off',
+    'comma-dangle': ['error', 'always-multiline'],
     'import/no-extraneous-dependencies': [
       'error',
       { optionalDependencies: false, peerDependencies: false, devDependencies: true },
@@ -75,7 +78,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 1,
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     'react-hooks/exhaustive-deps': 'off',

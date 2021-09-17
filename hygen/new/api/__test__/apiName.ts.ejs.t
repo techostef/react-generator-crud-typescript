@@ -1,7 +1,6 @@
 ---
 to: <%= absPath %>/api/<%= instrumentName %>/<%= camelApiName %>/__test__/<%= pascalApiName %>Api.test.ts
 ---
-/* eslint-disable no-unneeded-ternary */
 import <%= pascalApiName %>Api from '../<%= pascalApiName %>Api';
 
 describe('<%= pascalApiName %> Api', () => {
@@ -17,7 +16,7 @@ describe('<%= pascalApiName %> Api', () => {
     await <%= pascalApiName %>Api.postItem({
       data: {
         name: 'Chocolate',
-      }
+      },
     }).then((res: any) => {
       item = res?.data;
     });
@@ -28,7 +27,7 @@ describe('<%= pascalApiName %> Api', () => {
     await <%= pascalApiName %>Api.putItem({
       data: {
         name: 'Chocolate',
-      }
+      },
     }).then((res: any) => {
       item = res?.data;
     });
@@ -37,7 +36,7 @@ describe('<%= pascalApiName %> Api', () => {
   it('delete item', async () => {
     let data = [];
     await <%= pascalApiName %>Api.deleteItems({
-      ids: ['Vanilla 2']
+      ids: ['Vanilla 2'],
     }).then((res: any) => {
       data = res?.data;
     });
