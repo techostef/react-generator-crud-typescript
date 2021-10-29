@@ -8,10 +8,12 @@ import <%= camelStateName %>TypeEnum from './<%= camelStateName %>TypeEnum';
 
 const initData: I<%= pascalStateName %>State = {
   data: [],
+  disabledRowId: [],
   filters: {},
   hasPrevious: false,
   hasNext: false,
   indexSelectedItem: undefined,
+  isLoadingForm: false,
   isLoadingTable: false,
   isSelectionOption: false,
   orderBy: '',
@@ -94,20 +96,6 @@ const <%= camelStateName %>State = (state = init, action: any) => {
       return Map({
         ...newState,
         data: [...newState.data],
-      });
-
-    case <%= camelStateName %>TypeEnum.setPageSize:
-      newState = state.toJS() as unknown as I<%= pascalStateName %>State;
-      return Map({
-        ...newState,
-        pageSize: action.pageSize,
-      });
-
-    case <%= camelStateName %>TypeEnum.setTotalItems:
-      newState = state.toJS() as unknown as I<%= pascalStateName %>State;
-      return Map({
-        ...newState,
-        totalItems: action.totalItems,
       });
 
     case <%= camelStateName %>TypeEnum.editPropertyStateByKey:

@@ -9,29 +9,36 @@ describe('<%= pascalApiName %> Api', () => {
     await <%= pascalApiName %>Api.getItems().then((res: any) => {
       data = res?.data;
     });
-    expect(data.length).toBe(4);
+    expect(data?.length).toBe(4);
+  });
+  it('get item', async () => {
+    let item: any = {};
+    await <%= pascalApiName %>Api.getItem({ id: 1 }).then((res: any) => {
+      item = res?.data;
+    });
+    expect(item?.name).toBe('new Name');
   });
   it('post item', async () => {
     let item: any = {};
     await <%= pascalApiName %>Api.postItem({
       data: {
-        name: 'Chocolate',
+        name: 'new Name',
       },
     }).then((res: any) => {
       item = res?.data;
     });
-    expect(item?.name).toBe('Chocolate');
+    expect(item?.name).toBe('new Name');
   });
   it('put item', async () => {
     let item: any = {};
     await <%= pascalApiName %>Api.putItem({
       data: {
-        name: 'Chocolate',
+        name: 'new Name',
       },
     }).then((res: any) => {
       item = res?.data;
     });
-    expect(item?.name).toBe('Chocolate');
+    expect(item?.name).toBe('new Name');
   });
   it('delete item', async () => {
     let data = [];
@@ -40,6 +47,6 @@ describe('<%= pascalApiName %> Api', () => {
     }).then((res: any) => {
       data = res?.data;
     });
-    expect(data.length).toBe(3);
+    expect(data?.length).toBe(3);
   });
 });

@@ -3,37 +3,10 @@ to: <%= absPath %>/interfaces/<%= instrumentName %><%= camelStateName %>/I<%= pa
 ---
 import IImmutableMap from '<%= path %>IImmutableMap';
 import I<%= pascalStateName %>StateData from './I<%= pascalStateName %>StateData';
+import IStateGeneral from '<%= path %>IStateGeneral';
 
-interface I<%= pascalStateName %>StateMain {
-  data: I<%= pascalStateName %>StateData[],
-  filters: Partial<I<%= pascalStateName %>StateData>,
-  hasPrevious: boolean,
-  hasNext: boolean,
-  indexSelectedItem: number | string,
-  isLoadingTable: boolean,
-  isSelectionOption: boolean,
-  orderBy: string,
-  pageNumber: number,
-  pageSize: number,
-  selectedItems: I<%= pascalStateName %>StateData[],
-  searchTerm: string,
-  totalItems: number,
-}
+declare type I<%= pascalStateName %>StateMain = IStateGeneral<I<%= pascalStateName %>StateData>;
 
-interface I<%= pascalStateName %>State extends IImmutableMap<I<%= pascalStateName %>StateMain> {
-  data: I<%= pascalStateName %>StateData[],
-  filters: Partial<I<%= pascalStateName %>StateData>,
-  hasPrevious: boolean,
-  hasNext: boolean,
-  indexSelectedItem: number | string | undefined,
-  isLoadingTable: boolean,
-  isSelectionOption: boolean,
-  orderBy: string,
-  pageNumber: number,
-  pageSize: number,
-  searchTerm: string,
-  selectedItems: I<%= pascalStateName %>StateData[],
-  totalItems: number,
-}
+declare type I<%= pascalStateName %>State = Omit<I<%= pascalStateName %>StateMain, 'toJS'> & IImmutableMap<I<%= pascalStateName %>StateMain>
 
 export default I<%= pascalStateName %>State;

@@ -5,6 +5,7 @@ import I<%= pascalStateName %>State from '../<%= path %>interfaces/<%= instrumen
 import I<%= pascalStateName %>StateData from '../<%= path %>interfaces/<%= instrumentName %><%= camelStateName %>/I<%= pascalStateName %>StateData';
 import IEditItemByKey<%= pascalStateName %> from '../<%= path %>interfaces/<%= instrumentName %><%= camelStateName %>/IEditItemByKey<%= pascalStateName %>';
 import <%= camelStateName %>TypeEnum from './<%= camelStateName %>TypeEnum';
+import IStateActions from '../<%= path %>interfaces/IStateAction';
 
 const addItem = (item: I<%= pascalStateName %>StateData) => ({
   type: <%= camelStateName %>TypeEnum.addItem, item,
@@ -55,7 +56,11 @@ const setItem = (id: any, item: I<%= pascalStateName %>StateData) => ({
   type: <%= camelStateName %>TypeEnum.setItem, id, item,
 });
 
-const <%= camelStateName %>StateAction = {
+const <%= camelStateName %>StateAction: IStateActions<
+I<%= pascalStateName %>State,
+I<%= pascalStateName %>StateData,
+IEditItemByKey<%= pascalStateName %>
+> = {
   addItem,
   editFilters,
   editItemByKey,

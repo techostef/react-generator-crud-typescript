@@ -1,112 +1,197 @@
 ---
 to: <%= absPath %>/Page<%= pascalPageName %>Container/<%= pascalPageName %>Editor/<%= pascalPageName %>EditorContainer.tsx
 ---
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Form } from 'antd';
+import { Col, Form, Row, Spin } from 'antd';
 import { bindActionCreators } from 'redux';
 import <%= pascalPageName %>EditorHeader from './<%= pascalPageName %>EditorHeader';
 import <%= pascalPageName %>EditorContent from './<%= pascalPageName %>EditorContent';
 import IState from '../../<%= path %>interfaces/IState';
-import <%= pascalPageName %>Api from '../../<%= path %>api/<%= instrumentName %><%= camelPageName %>/<%= pascalPageName %>Api';
-import RestHelper from '../../<%= path %>helper/RestHelper';
 import I<%= pascalPageName %>StateData from '../../<%= path %>interfaces/<%= instrumentName %><%= camelPageName %>/I<%= pascalPageName %>StateData';
-import routeStateActionImp from '../../<%= path %>stores/route/routeStateAction';
+import confirmDialogBusinessActionImp from '../../<%= path %>stores/confirmDialog/confirmDialogBusinessAction';
+import <%= pascalPageName %>Business from '../../<%= path %>business/<%= instrumentName %><%= pascalPageName %>Business';
+import <%= camelPageName %>BusinessActionImp from '../../<%= path %>stores/<%= instrumentName %><%= camelPageName %>/<%= camelPageName %>BusinessAction';
+import <%= camelPageName %>StateActionImp from '../../<%= path %>stores/<%= instrumentName %><%= camelPageName %>/<%= camelPageName %>StateAction';
+import routeBusinessActionImp from '../../<%= path %>stores/route/routeBusinessAction';
+import { useChangeHighlight } from '../../<%= path %>helper/hooksHelper';
+import FormBusiness from '../../<%= path %>business/FormBusiness';
+import IForm from '../../<%= path %>interfaces/IForm';
 
 import './<%= pascalPageName %>EditorContainer.scss';
 
 const mapStateToProps = (state: IState) => {
   const <%= camelPageName %>State = state.<%= camelPageName %>State.toJS();
   return {
-    isAdd: <%= camelPageName %>State.indexSelectedItem === undefined,
     indexSelectedItem: <%= camelPageName %>State.indexSelectedItem,
+    isAdd: <%= camelPageName %>State.indexSelectedItem === undefined,
+    isLoadingForm: <%= camelPageName %>State.isLoadingForm,
     selectedItems: <%= camelPageName %>State.selectedItems,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    routeStateAction: bindActionCreators(routeStateActionImp, dispatch),
+    confirmDialogBusinessAction: bindActionCreators(confirmDialogBusinessActionImp, dispatch),
+    <%= camelPageName %>BusinessAction: bindActionCreators(<%= camelPageName %>BusinessActionImp as any, dispatch),
+    <%= camelPageName %>StateAction: bindActionCreators(<%= camelPageName %>StateActionImp as any, dispatch),
+    routeBusinessAction: bindActionCreators(routeBusinessActionImp, dispatch),
   };
 };
 
 interface I<%= pascalPageName %>EditorContainer {
+  confirmDialogBusinessAction: typeof confirmDialogBusinessActionImp,
+  indexSelectedItem?: string | number,
   isAdd: boolean,
-  indexSelectedItem: string | number,
-  routeStateAction: typeof routeStateActionImp,
+  isLoadingForm: boolean,
+  <%= camelPageName %>BusinessAction: typeof <%= camelPageName %>BusinessActionImp,
+  <%= camelPageName %>StateAction: typeof <%= camelPageName %>StateActionImp,
+  routeBusinessAction: typeof routeBusinessActionImp,
   selectedItems: I<%= pascalPageName %>StateData[],
 }
 
 const <%= pascalPageName %>EditorContainer: React.FC<I<%= pascalPageName %>EditorContainer> = ({
-  isAdd,
+  confirmDialogBusinessAction,
   indexSelectedItem,
-  routeStateAction,
+  isAdd,
+  isLoadingForm,
+  <%= camelPageName %>BusinessAction,
+  <%= camelPageName %>StateAction,
+  routeBusinessAction,
   selectedItems,
 }) => {
-  const refForm = useRef<any>();
-  const [form] = Form.useForm();
+  const [form] = Form.useForm() as [IForm<I<%= pascalPageName %>StateData>];
+  const [isTouched, setIsTouched] = useState(false);
 
-  const gotoManagement = () => {
-    routeStateAction.setCurrent('home');
-  };
+  const {
+    classHighlight,
+    isEdit,
+    setValue: setValueChangeHighlight,
+    restoreData: restoreDataChangeHighlight,
+  } = useChangeHighlight(undefined, isAdd);
 
   useEffect(() => {
-    if (selectedItems.length === 0) return;
-    if (typeof indexSelectedItem !== 'number') return;
-    const item = selectedItems[indexSelectedItem];
-    if (!item) return;
+    (async () => {
+      if (selectedItems.length === 0) return;
+      if (typeof indexSelectedItem !== 'number') return;
+      const item = selectedItems[indexSelectedItem];
+      if (!item) return;
 
-    <%= pascalPageName %>Api.getItem({ id: item?.id }).then((response) => {
-      RestHelper.handleResultRequest(response).then((data: any) => {
-        refForm.current!.setFieldsValue({
-          name: data?.name ?? '',
+      <%= camelPageName %>StateAction.editPropertyStateByKey('isLoadingForm', true);
+      const newData = await <%= pascalPageName %>Business.getItemById(item?.id)
+        .finally(() => <%= camelPageName %>StateAction.editPropertyStateByKey('isLoadingForm', false));
+      setIsTouched(false);
+      if (form) {
+        restoreDataChangeHighlight(newData);
+        form.setFieldsValue({
+          name: newData?.name ?? '',
         });
-      });
-    });
+      }
+    })();
   }, [indexSelectedItem]);
 
-  const onFinish = (data) => {
-    if (isAdd) {
-      console.log('isAdd', data);
+  const gotoManagement = () => {
+    routeBusinessAction.goto<%= pascalPageName %>Management();
+  };
+
+  const handleBack = () => {
+    if (isTouched) {
+      confirmDialogBusinessAction.showDialog({
+        title: 'Back to <%= pascalPageName %> Management Overview',
+        content: (
+          <Row>
+            <Col>The unsaved changes will be discarded.</Col>
+            <Col>Are you sure you wants to go back to <%= pascalPageName %> Management overview?</Col>
+          </Row>
+        ),
+        handleOk: () => {
+          gotoManagement();
+          confirmDialogBusinessAction.hideDialog();
+        },
+      });
     } else {
-      console.log('isEdit', data);
-      if (selectedItems.length === 1) {
-        gotoManagement();
+      gotoManagement();
+    }
+  };
+
+  const doSave = async (data) => {
+    confirmDialogBusinessAction.hideDialog();
+    const onSuccess = () => setIsTouched(false);
+    if (isAdd) {
+      await <%= camelPageName %>BusinessAction.createItem(data, onSuccess);
+    } else if (typeof indexSelectedItem !== 'undefined') {
+      const item = selectedItems[indexSelectedItem];
+      if (item) {
+        await <%= camelPageName %>BusinessAction.updateItem(item.id, data, onSuccess);
       }
     }
+  };
+
+  const onFinish = (data) => {
+    confirmDialogBusinessAction.showDialog({
+      title: 'Save Confirm',
+      content: 'Do you want save the changes?',
+      handleOk: async () => {
+        await doSave(data);
+      },
+    });
   };
 
   return (
     <div className="<%= camelPageName %>-editor-container">
       <Form
-        ref={refForm}
-        form={form}
+        form={form as any}
         name="basic"
-        initialValues={{ remember: true }}
+        onValuesChange={(itemChange) => {
+          setValueChangeHighlight(itemChange);
+          setIsTouched(true);
+        }}
         onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
+        layout="vertical"
+        className="max-height container-flex"
       >
-        <<%= pascalPageName %>EditorHeader />
-        <<%= pascalPageName %>EditorContent />
+        <<%= pascalPageName %>EditorHeader
+          handleBack={handleBack}
+          isTouched={isTouched}
+          isSubmitDisabled={
+            FormBusiness.disabledSubmitGeneral(isAdd, isEdit, isLoadingForm, isTouched)
+          }
+        />
+        <Spin tip="Loading..." spinning={isLoadingForm}>
+          <<%= pascalPageName %>EditorContent
+            classHighlight={classHighlight}
+            isAdd={isAdd}
+          />
+        </Spin>
       </Form>
     </div>
   );
 };
 
 <%= pascalPageName %>EditorContainer.propTypes = {
-  isAdd: PropTypes.any,
+  confirmDialogBusinessAction: PropTypes.any,
   indexSelectedItem: PropTypes.any,
-  routeStateAction: PropTypes.any,
+  isAdd: PropTypes.any,
+  isLoadingForm: PropTypes.any,
+  <%= camelPageName %>BusinessAction: PropTypes.any,
+  <%= camelPageName %>StateAction: PropTypes.any,
+  routeBusinessAction: PropTypes.any,
   selectedItems: PropTypes.any,
 };
 
 <%= pascalPageName %>EditorContainer.defaultProps = {
-  isAdd: true,
+  confirmDialogBusinessAction: undefined,
   indexSelectedItem: undefined,
-  routeStateAction: undefined,
+  isAdd: true,
+  isLoadingForm: false,
+  <%= camelPageName %>BusinessAction: undefined,
+  <%= camelPageName %>StateAction: undefined,
+  routeBusinessAction: undefined,
   selectedItems: [],
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(<%= pascalPageName %>EditorContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  React.memo(<%= pascalPageName %>EditorContainer),
+);

@@ -1,7 +1,7 @@
 ---
 to: <%= absPath %>/Page<%= pascalPageName %>Container/<%= pascalPageName %>Explorer/<%= pascalPageName %>ExplorerContent.tsx
 ---
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { batch, connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -67,6 +67,22 @@ const <%= pascalPageName %>ExplorerContent: React.FC<I<%= pascalPageName %>Explo
       <%= camelPageName %>StateAction.editPropertyStateByKey('isLoadingTable', false);
     });
   };
+
+  useEffect(() => {
+    const init = async () => {
+      await getData();
+    };
+
+    init();
+  }, []);
+
+  useEffect(() => {
+    const init = async () => {
+      await getData();
+    };
+
+    init();
+  }, []);
 
   return (
     <div className="<%= camelPageName %>-explorer-content">

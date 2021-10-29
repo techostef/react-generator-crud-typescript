@@ -11,8 +11,6 @@ const <%= camelStateName %>TypeEnum = {
   restoreSelectedItems: '<%= camelStateName %>/restoreSelectedItems',
   restoreState: '<%= camelStateName %>/restoreState',
   setItem: '<%= camelStateName %>/setItem',
-  setPageSize: '<%= camelStateName %>/setPageSize',
-  setTotalItems: '<%= camelStateName %>/setTotalItems',
   removeItem: '<%= camelStateName %>/removeItem',
 };
 

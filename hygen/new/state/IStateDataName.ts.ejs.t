@@ -4,7 +4,6 @@ to: <%= absPath %>/interfaces/<%= instrumentName %><%= camelStateName %>/I<%= pa
 interface I<%= pascalStateName %>StateData {
   id: any,
   name: string,
-  isSelected: boolean,
 }
 
 export default I<%= pascalStateName %>StateData;

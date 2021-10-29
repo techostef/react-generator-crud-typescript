@@ -1,8 +1,11 @@
 const instrumentsEnum = Object.freeze({
-    info1: 'info1',
-    info2: 'info2',
-    info3: 'info3',
+    consumableStorage: 'consumableStorage',
+    delidder: 'delidder',
+    incubator: 'incubator',
+    instrumentShelf: 'instrumentShelf',
+    refrigerator: 'refrigerator',
     root: '',
+    suite: 'suite',
 })
 
 module.exports = instrumentsEnum;

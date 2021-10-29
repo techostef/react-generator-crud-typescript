@@ -1,7 +1,6 @@
 ---
 to: <%= absPath %>/Page<%= pascalPageName %>Container/<%= pascalPageName %>Editor/__test__/<%= pascalPageName %>EditorContainer.test.tsx
 ---
-/* eslint-disable no-unneeded-ternary */
 import React from 'react';
 import { render } from '@testing-library/react';
 import { applyMiddleware, createStore } from 'redux';
