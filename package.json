@@ -1,5 +1,5 @@
 {
-  "name": "react-photo-album-typescript",
+  "name": "react-generator",
   "version": "1.0.0",
   "homepage": ".",
   "private": true,
@@ -81,7 +81,7 @@
     "new:state": "hygen new state",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest",
+    "test": "jest --silent --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/**/*.ts ./src/**/*.tsx"
   },

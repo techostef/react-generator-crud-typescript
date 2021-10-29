@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import qs from 'qs';
-import { notification } from 'antd';
+import CompHelper from './CompHelper';
+// import UsersApi from '../api/suite/users/UsersApi';
 
 interface ICallApi {
   data?: any,
@@ -10,10 +11,36 @@ interface ICallApi {
   serviceUrl?: any,
 }
 
+const axiosApiInstance = axios.create();
+axiosApiInstance.interceptors.response.use((response) => response, async (error) => {
+  const originalRequest = error.config;
+  const token = localStorage.getItem('token');
+  if (error?.response?.status === 401 && !originalRequest._retry && token) {
+    originalRequest._retry = true;
+    // const respRefreshToken: AxiosResponse = await UsersApi.refreshToken();
+    // const newToken = respRefreshToken.data?.token;
+    // if (newToken) {
+    //   localStorage.setItem('token', newToken);
+    //   originalRequest.headers.authorization = `Bearer ${newToken}`;
+    //   return axiosApiInstance(originalRequest);
+    // }
+    // localStorage.removeItem('token');
+  }
+  return Promise.reject(error);
+});
+
 const callApi = async (payload: ICallApi) => {
   const url = payload.serviceUrl + payload.route;
   let response: any = null;
-  await axios({
+  const token = localStorage.getItem('token');
+  let bearerToken = '';
+  if (token) {
+    bearerToken = `Bearer ${token}`;
+  }
+  await axiosApiInstance({
+    headers: {
+      authorization: bearerToken,
+    },
     method: payload.method,
     url,
     data: payload.data,
@@ -23,10 +50,6 @@ const callApi = async (payload: ICallApi) => {
     },
   })
     .then((res) => {
-      // data.headers.xPagination = (
-      //     data.headers['x-pagination'] ?
-      //     JSON.parse(data.headers['x-pagination']) : null
-      // );
       response = res;
     })
     .catch((error) => {
@@ -39,35 +62,42 @@ const callApi = async (payload: ICallApi) => {
   return response;
 };
 
-const handleResultRequest = (result: any, useNotificationError = true) => {
-  // console.log('mock jest', process?.env?.JEST_WORKER_ID);
+const handleResultRequest = (result: AxiosResponse, useNotificationError = true) => {
   return new Promise((resolve, reject) => {
-    if (isSuccess(result)) {
-      resolve(result.data);
-    } else {
+    if (!isSuccess(result)) {
+      let message = 'Network Error';
       if (useNotificationError) {
-        // eslint-disable-next-line no-console
-        // console.log('result error: ', result, JSON.stringify(result));
+        let title = 'Notification Error';
 
-        let message = result?.result ?? 'Network Error';
-        if (parseInt(result?.status, 10) === 400) {
+        if (result?.status === 400) {
           message = result?.data?.title ?? 'Message Empty';
+        } else {
+          message = `${message} ${result?.status}`;
         }
 
-        notification.info({
-          message: 'Notification Error',
-          description: message,
-          placement: 'bottomRight',
-        });
+        if (typeof result?.data?.errors === 'object') {
+          const { errors } = result.data;
+          const keys = Object.keys(errors);
+          title = result?.data?.title;
+          message = '';
+          keys.forEach((item) => {
+            message += `${errors[item][0]}\n`;
+          });
+        }
+
+        if (result?.status !== 401) {
+          CompHelper.notificationInfo(title, message);
+        }
+        reject(message);
       }
-      reject(result);
+    } else {
+      resolve(result.data);
     }
   });
 };
 
 const isSuccess = (result: any) => {
-  if (result.status >= 200 && result.status <= 300) return true;
-
+  if (result.status >= 200 && result.status <= 299) return true;
   return false;
 };
 
