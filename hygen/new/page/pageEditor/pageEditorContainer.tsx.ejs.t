@@ -15,7 +15,7 @@ import <%= pascalPageName %>Business from '../../<%= path %>business/<%= instrum
 import <%= camelPageName %>BusinessActionImp from '../../<%= path %>stores/<%= instrumentName %><%= camelPageName %>/<%= camelPageName %>BusinessAction';
 import <%= camelPageName %>StateActionImp from '../../<%= path %>stores/<%= instrumentName %><%= camelPageName %>/<%= camelPageName %>StateAction';
 import routeBusinessActionImp from '../../<%= path %>stores/route/routeBusinessAction';
-import { useChangeHighlight } from '../../<%= path %>helper/hooksHelper';
+import { useChangeHighlight } from '../../<%= path %>helper/HooksHelper';
 import FormBusiness from '../../<%= path %>business/FormBusiness';
 import IForm from '../../<%= path %>interfaces/IForm';
 

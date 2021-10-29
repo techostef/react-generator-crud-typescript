@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import {
   Form,
   Input,
-} from 'cellculture-ui-v2';
+} from 'antd';
 
 import './<%= pascalPageName %>EditorContent.scss';
 import I<%= pascalPageName %>StateData from '../../../../interfaces/<%= instrumentName %><%= camelPageName %>/I<%= pascalPageName %>StateData';
-import { IClassHighlight } from '../../<%= path %>helper/hooksHelper';
+import { IClassHighlight } from '../../<%= path %>helper/HooksHelper';
 
 const mapStateToProps = () => {
   return {

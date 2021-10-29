@@ -1,0 +1,29 @@
+.comp-detail-item {
+  height: 100%;
+  .ant-layout-header {
+    background-color: #F5F5F5;
+    padding: 0px 18px;
+    height: 60px;
+    position: relative;
+
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+
+    color: #414141;
+    .detail-item-close-icon {
+      position: absolute;
+      right: 13px;
+      top: 11px;
+      cursor: pointer;
+    }
+  }
+  .detail-item-content {
+    height: 100%;
+    background-color: white;
+    padding: 20px 18px;
+    overflow-y: auto;
+  }
+}

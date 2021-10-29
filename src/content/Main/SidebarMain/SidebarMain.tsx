@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { PieChartOutlined, DesktopOutlined, UserOutlined, HomeFilled } from '@ant-design/icons';
 import { bindActionCreators } from 'redux';
-import Sidebar from '../../../components/sidebar/Sidebar';
+import Sidebar from '../../../components/Sidebar/Sidebar';
 import './SidebarMain.scss';
 import routeStateActionImp from '../../../stores/route/routeStateAction';
 

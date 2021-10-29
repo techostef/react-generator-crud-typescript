@@ -1,3 +1,4 @@
+import RouteEnum from '../../enums/RouteEnum';
 import IState from '../../interfaces/IState';
 import appStateAction from '../app/appStateAction';
 import routeStateAction from './routeStateAction';
@@ -11,14 +12,14 @@ const gotoReagentsTestManagement = () => (dispatch) => {
   dispatch(routeStateAction.setCurrent('reagentsTestManagement'));
 };
 
-const getCurrent = () => {
+const getCurrent = (): any => {
   return (dispatch, getState) => {
     const state: IState = getState();
     return state?.routeState?.toJS()?.current;
   };
 };
 
-const getLastPage = () => {
+const getLastPage = (): any => {
   return (dispatch, getState) => {
     const state: IState = getState();
     const history = state?.routeState?.toJS()?.history ?? [];
@@ -26,7 +27,14 @@ const getLastPage = () => {
   };
 };
 
-const routeBusinessAction = {
+export interface IRouteBusinessAction {
+  getCurrent: () => keyof typeof RouteEnum,
+  getLastPage: () => keyof typeof RouteEnum,
+  gotoReagentsTestManagement: () => void,
+  gotoReagentsTestEditor: () => void,
+}
+
+const routeBusinessAction: IRouteBusinessAction = {
   getCurrent,
   getLastPage,
   gotoReagentsTestEditor,

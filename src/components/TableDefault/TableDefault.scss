@@ -1,0 +1,39 @@
+@import '../../config.scss';
+
+.explorer-content {
+  width: 100%;
+  position: relative;
+  .ant-table-body {
+    height: 100vh;
+    .ant-table-tbody {
+      > tr.ant-table-row-selected {
+        > td {
+          background-color: white;
+        }
+      }
+    }
+    .highlight {
+      background-color: adjust-color($primary, $lightness: 30%) !important;
+      td {
+        background-color: adjust-color($primary, $lightness: 30%) !important;
+      }
+    }
+  }
+  .detail-item {
+    border: 1px solid #8080802b;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: calc(100% - 55px);
+    background-color: white;
+    z-index: 9;
+    margin-right: 16px;
+
+    .ant-layout-header {
+      font-size: 14px;
+      line-height: 47px;
+      height: 46px;
+    }
+  }
+}

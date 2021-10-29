@@ -4,7 +4,7 @@ to: <%= absPath %>/Page<%= pascalPageName %>Container/<%= pascalPageName %>Explo
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { batch, connect } from 'react-redux';
-import { Button, PageHeader } from 'cellculture-ui-v2';
+import { Button, PageHeader } from 'antd';
 import { bindActionCreators } from 'redux';
 import { DeleteFilled, EditFilled } from '@ant-design/icons';
 import { ReactComponent as CellIcon } from '../../<%= path %>images/Cell.svg';
