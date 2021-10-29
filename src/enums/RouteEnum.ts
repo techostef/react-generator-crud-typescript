@@ -1,6 +1,6 @@
 enum RouteEnum {
-  createdManagement = 'createdManagement',
-  createdEditor = 'createdEditor',
+  reagentsTestManagement = 'reagentsTestManagement',
+  reagentsTestEditor = 'reagentsTestEditor',
   home = 'home',
 }
 

@@ -26,7 +26,7 @@ const restoreState = (data) => ({
   data,
 });
 
-const appStateAction = {
+const routeStateAction = {
   editParams,
   setCurrent,
   setParams,
@@ -34,4 +34,4 @@ const appStateAction = {
   restoreState,
 };
 
-export default appStateAction;
+export default routeStateAction;
