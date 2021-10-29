@@ -47,7 +47,7 @@ const SidebarMain: React.FC<ISidebarMain> = ({
     const key = e?.key ?? '';
     switch (key) {
       case '2':
-        routeStateAction.setCurrent('createdManagement');
+        routeStateAction.setCurrent('reagentsTestEditor');
         break;
       default:
         routeStateAction.setCurrent('home');
